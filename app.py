@@ -17,10 +17,14 @@ db = client['warehouse_db']
 from routes.auth_routes import auth_bp
 from routes.product_routes import product_bp
 from routes.report_routes import report_bp
+from routes.order_routes import order_bp
+from routes.user_routes import user_bp
 
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(product_bp, url_prefix='/products')
 app.register_blueprint(report_bp, url_prefix='/reports')
+app.register_blueprint(order_bp, url_prefix='/orders')
+app.register_blueprint(user_bp, url_prefix='/users')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

@@ -24,7 +24,13 @@ def register():
 def login():
     data = request.get_json()
     user = db.users.find_one({'username': data['username']})
+
     if user and bcrypt.check_password_hash(user['password'], data['password']):
+        # Create the access token with the user's role
         access_token = create_access_token(identity={'username': user['username'], 'role': user['role']})
-        return jsonify(access_token=access_token), 200
+
+        # Include the role in the response body
+        return jsonify(access_token=access_token, role=user['role']), 200
+
     return jsonify(message="Invalid credentials"), 401
+
